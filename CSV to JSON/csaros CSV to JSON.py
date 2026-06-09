@@ -22,6 +22,9 @@ def fix_numbers(value):
 
 def try_parse_embedded_json(value):
     # (Kept identical to your working version)
+    if not isinstance(value, str):
+        return value    
+    value = value.replace("|",",")
     new_value = value.strip()
     if not (new_value.startswith('{') or new_value.startswith('[')):
         return new_value
@@ -186,7 +189,7 @@ def csv_reader(headers, row):
 
 
 def _initiate_CSV_TO_JSON(file_path):
-    with open(file_path, newline="", encoding="utf-8") as f:
+    with open(file_path, newline="", encoding="utf-8-sig") as f:
         reader = csv.reader(f)
     
         headers = next(reader)
